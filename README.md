@@ -1,75 +1,95 @@
-# React + TypeScript + Vite
+# Mixdown: Release Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A release tracker for independent musicians. See every track on a single, EP, or album move through production, from mix to distribution, at a glance.
 
-Currently, two official plugins are available:
+Live demo: *coming soon*
+Design file: *link to Figma*
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Why I built this
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I produce music, and releasing it means juggling a lot of half-finished steps across many tracks: which songs are mixed, which are mastered, whether the artwork is done, and what's still blocking the release date. Generic to-do apps flatten all of that into one list. Mixdown: Release Tracker organizes work the way a release actually happens: **release -> tracks -> stages**.
 
-## Expanding the ESLint configuration
+## Core idea: the stage view
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Each release shows its tracks as rows and its production stages as columns, so you can see at a glance what's done and what's holding things up.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Track       | Mix | Master | Artwork | Distribution |
+|-------------|-----|--------|---------|--------------|
+| Track One   | ✅  | ✅     | ⏳      | ⬜           |
+| Track Two   | ✅  | ⏳     | ⬜      | ⬜           |
+| Track Three | ⏳  | ⬜     | ⬜      | ⬜           |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### MVP
+- [ ] Create a release (single / EP / album) with a title and target release date
+- [ ] Add, rename, reorder, and delete tracks within a release
+- [ ] Per-track stage view showing each stage as not started / in progress / done
+- [ ] Release progress summary (e.g. "7 of 12 stages complete")
+- [ ] Data persists in localStorage
+- [ ] Deployed
 
+### Later
+- [ ] Overdue warnings based on target release date
+- [ ] Notes and links per stage (mix file, reference track, distributor page)
+- [ ] Filter tracks by stage ("show everything waiting on master")
+- [ ] Custom stages per release
+- [ ] Export/import releases as JSON
+
+## Data model
+
+```ts
+type StageStatus = "not-started" | "in-progress" | "done";
+
+type Stage = {
+  id: string;
+  name: string; // "Mix", "Master", "Artwork", "Distribution"
+  status: StageStatus;
+  note?: string;
+};
+
+type Track = {
+  id: string;
+  title: string;
+  stages: Stage[];
+};
+
+type Release = {
+  id: string;
+  title: string;
+  type: "single" | "ep" | "album";
+  targetDate?: string; // ISO date
+  tracks: Track[];
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Design & accessibility
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Designed in Figma before building. See the design file link above.
+- Status is never conveyed by color alone; each status also has an icon and a text label.
+- Fully keyboard operable, with visible focus states.
+- Semantic HTML and proper labels on all controls.
+- Responsive, with a stage view that adapts to mobile.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech stack
 
+- React + Vite
+- TypeScript
+- CSS
+- localStorage for persistence
+- Deployed on Netlify
+
+## Getting started
+
+```bash
+git clone https://github.com/jamesburtonevans/mixdown.git
+cd release-board
+npm install
+npm run dev
 ```
+
+## About
+
+Built by [James Burton Evans](https://jamesburtonevans.com), product designer and frontend developer.
