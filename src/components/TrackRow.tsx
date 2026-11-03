@@ -1,7 +1,7 @@
-import type { Track } from "../types"
-import { STAGES } from "../types"
+import type { Track } from "../types";
+import { STAGES } from "../types";
 
-type TrackRowProps = { track: Track, number: number }
+type TrackRowProps = { track: Track, number: number };
 
 export function TrackRow({ track, number }: TrackRowProps) {
   return (
