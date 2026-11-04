@@ -10,7 +10,7 @@ export function TrackRow({ track, number, onUpdate }: TrackRowProps) {
       <div>{number}</div>
       <div>{track.name}</div>
       {STAGES.map((stage) => (
-        <StatusSelect key={stage} value={track[stage]} label={track.name + stage} onChange={(newStatus) => {onUpdate({ [stage]: newStatus})}} />
+        <StatusSelect key={stage} value={track[stage]} label={track.name + " " + stage} onChange={(newStatus) => {onUpdate({ [stage]: newStatus})}} />
       ))}
     </div>
   );
