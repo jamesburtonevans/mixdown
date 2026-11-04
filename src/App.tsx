@@ -3,7 +3,7 @@ import { sampleReleases } from './sampleData';
 import { ReleaseRow } from './components/ReleaseRow';
 import type { Track } from './types';
 
-export default function App() {
+export function App() {
   const [releases, setReleases] = useState(sampleReleases);
   function updateTrack(releaseId: string, trackId: string, changes: Partial<Track>) {
     console.log(releaseId, trackId, changes)

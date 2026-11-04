@@ -1,6 +1,6 @@
 import type { Release } from "./types";
 
-export const sampleReleases : Release[] = [
+export const sampleReleases: Release[] = [
   {
     id: "001",
     name: "Sample Album 1",
