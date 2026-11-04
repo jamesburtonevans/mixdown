@@ -8,7 +8,7 @@ type StatusSelectProps = {
 
 export function StatusSelect({ value, onChange, label }: StatusSelectProps) {
   return (
-    <select value={value} aria-label={label} onChange={(event) => onChange(event.target.value as Status)}>
+    <select className={`status-select status-select--${value}`} value={value} aria-label={label} onChange={(event) => onChange(event.target.value as Status)}>
       <option value="none"></option>
       <option value="todo">Todo</option>
       <option value="in-progress">In Progress</option>

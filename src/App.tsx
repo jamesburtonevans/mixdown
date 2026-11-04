@@ -40,7 +40,7 @@ export function App() {
   }
 
   return (
-    <main>
+    <main className="app">
       {releases.map((release) => (
         <ReleaseRow key={release.id} release={release} onUpdateTrack={(trackId, changes) => updateTrack(release.id, trackId, changes)} />
       ))}
