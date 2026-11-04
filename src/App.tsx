@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { sampleReleases } from './sampleData';
 import { ReleaseRow } from './components/ReleaseRow';
-import type { Track } from './types';
+import type { Track, Release } from './types';
 
 export function App() {
-  const [releases, setReleases] = useState(sampleReleases);
+  const [releases, setReleases] = useState<Release[]>(() => {
+    const saved = localStorage.getItem("mixdown-releases");
+    if (saved != null) {
+      return JSON.parse(saved);
+    } else {
+      return sampleReleases;
+    }
+  });
+
+  useEffect(() => {
+    const releaseText = JSON.stringify(releases);
+    localStorage.setItem("mixdown-releases", releaseText);
+  }, [releases]);
 
   function updateTrack(releaseId: string, trackId: string, changes: Partial<Track>) {
     setReleases((currentReleases) => {
