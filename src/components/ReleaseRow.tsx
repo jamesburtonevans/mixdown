@@ -1,18 +1,31 @@
 import type { Release, Track } from "../types";
+import { STAGES } from "../types";
 import { TrackRow } from "./TrackRow";
 
 
 type ReleaseRowProps = { release: Release, onUpdateTrack: (trackId: string, changes: Partial<Track>) => void };
 
 export function ReleaseRow({ release, onUpdateTrack }: ReleaseRowProps) {
+  const headingId = `release-${release.id}-name`;
   return (
-    <div className="release">
-      <div className="release__name">{release.name}</div>
-      <div className="release__tracks">
-        {release.tracks.map((track, index) => (
-          <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} />
-        ))}
-      </div>
-    </div>
+    <section className="release" aria-labelledby={headingId}>
+      <h2 className="release__name" id={headingId}>{release.name}</h2>
+      <table className="release__tracks" aria-labelledby={headingId}>
+        <thead>
+          <tr>
+            <th scope="col" className="release__heading">#</th>
+            <th scope="col" className="release__heading">Track</th>
+            {STAGES.map((stage) => (
+              <th scope="col" className="release__heading" key={stage}>{stage}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {release.tracks.map((track, index) => (
+            <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} />
+          ))}
+        </tbody>
+      </table>
+    </section>
   );
 }

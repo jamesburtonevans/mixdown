@@ -41,6 +41,7 @@ export function App() {
 
   return (
     <main className="app">
+      <h1 className="app__title">Mixdown</h1>
       {releases.map((release) => (
         <ReleaseRow key={release.id} release={release} onUpdateTrack={(trackId, changes) => updateTrack(release.id, trackId, changes)} />
       ))}
