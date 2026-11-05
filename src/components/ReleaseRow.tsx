@@ -3,13 +3,18 @@ import { STAGES } from "../types";
 import { TrackRow } from "./TrackRow";
 
 
-type ReleaseRowProps = { release: Release, onUpdateTrack: (trackId: string, changes: Partial<Track>) => void };
+type ReleaseRowProps = {
+  release: Release;
+  onUpdateTrack: (trackId: string, changes: Partial<Track>) => void;
+  onDelete: () => void;
+};
 
-export function ReleaseRow({ release, onUpdateTrack }: ReleaseRowProps) {
+export function ReleaseRow({ release, onUpdateTrack, onDelete }: ReleaseRowProps) {
   const headingId = `release-${release.id}-name`;
   return (
     <section className="release" aria-labelledby={headingId}>
       <h2 className="release__name" id={headingId}>{release.name}</h2>
+      <button className="release__delete" type="button" onClick={onDelete}>Delete {release.name}</button>
       <table className="release__tracks" aria-labelledby={headingId}>
         <thead>
           <tr>

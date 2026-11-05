@@ -39,11 +39,24 @@ export function App() {
     });
   }
 
+  function deleteRelease(releaseId: string) {
+    setReleases((currentReleases) => {
+      return currentReleases.filter((release) => { return release.id !== releaseId })
+    });
+  }
+
   return (
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
       {releases.map((release) => (
-        <ReleaseRow key={release.id} release={release} onUpdateTrack={(trackId, changes) => updateTrack(release.id, trackId, changes)} />
+        <ReleaseRow
+          key={release.id}
+          release={release}
+          onUpdateTrack={(trackId, changes) =>
+            updateTrack(release.id, trackId, changes)
+          }
+          onDelete={() => deleteRelease(release.id)}
+        />
       ))}
     </main>
   )
