@@ -45,9 +45,44 @@ export function App() {
     });
   }
 
+  function addRelease() {
+    const newRelease: Release = {
+      id: crypto.randomUUID(),
+      name: "New Release",
+      releaseDate: "2026-08-23",
+      tasks: [
+        {
+          id: crypto.randomUUID(),
+          name: "Artwork",
+          status: "done"
+        },
+        {
+          id: crypto.randomUUID(),
+          name: "Distribute",
+          status: "done"
+        },
+      ],
+      tracks: [
+        {
+          id: crypto.randomUUID(),
+          name: "New Song",
+          write: "done",
+          record: "done",
+          mix: "done",
+          master: "done",
+        },
+      ],
+    }
+
+    setReleases((currentReleases) => {
+      return [...currentReleases, newRelease];
+    });
+  }
+
   return (
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
+      <button className="release__add" type="button" onClick={addRelease}>Add New Release</button>
       {releases.map((release) => (
         <ReleaseRow
           key={release.id}

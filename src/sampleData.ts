@@ -2,24 +2,24 @@ import type { Release } from "./types";
 
 export const sampleReleases: Release[] = [
   {
-    id: "001",
+    id: crypto.randomUUID(),
     name: "Sample Album 1",
     releaseDate: "2026-11-01",
     tasks: [
       {
-        id: "002",
+        id: crypto.randomUUID(),
         name: "Artwork",
         status: "in-review"
       },
       {
-        id: "003",
+        id: crypto.randomUUID(),
         name: "Distribute",
         status: "todo"
       },
     ],
     tracks: [
       {
-        id: "004",
+        id: crypto.randomUUID(),
         name: "Sample Song 1",
         write: "done",
         record: "done",
@@ -27,7 +27,7 @@ export const sampleReleases: Release[] = [
         master: "todo",
       },
       {
-        id: "005",
+        id: crypto.randomUUID(),
         name: "Sample Song 2",
         write: "done",
         record: "in-progress",
@@ -35,7 +35,7 @@ export const sampleReleases: Release[] = [
         master: "none",
       },
       {
-        id: "006",
+        id: crypto.randomUUID(),
         name: "Sample Song 3",
         write: "in-progress",
         record: "todo",
@@ -45,24 +45,24 @@ export const sampleReleases: Release[] = [
     ],
   },
   {
-    id: "007",
+    id: crypto.randomUUID(),
     name: "Sample Song 4 - Single",
     releaseDate: "2026-08-23",
     tasks: [
       {
-        id: "008",
+        id: crypto.randomUUID(),
         name: "Artwork",
         status: "done"
       },
       {
-        id: "009",
+        id: crypto.randomUUID(),
         name: "Distribute",
         status: "done"
       },
     ],
     tracks: [
       {
-        id: "010",
+        id: crypto.randomUUID(),
         name: "Sample Song 4",
         write: "done",
         record: "done",
