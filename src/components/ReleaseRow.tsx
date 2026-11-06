@@ -13,6 +13,21 @@ export function ReleaseRow({ release, onUpdateTrack, onDelete }: ReleaseRowProps
   return (
     <section className="release" aria-labelledby={headingId}>
       <h2 className="release__name" id={headingId}>{release.name}</h2>
+
+      <p className="release__date">
+        Release date:{" "}
+        {release.releaseDate === null ? (
+          "Not set"
+        ) : (
+          <time dateTime={release.releaseDate}>
+            {new Date(release.releaseDate).toLocaleDateString(undefined, {
+              dateStyle: "medium",
+              timeZone: "UTC",
+            })}
+          </time>
+        )}
+      </p>
+
       <button className="release__delete" type="button" onClick={onDelete}>Delete {release.name}</button>
       <table className="release__tracks" aria-labelledby={headingId}>
         <thead>
