@@ -2,8 +2,8 @@
 
 A release tracker for independent musicians. See every track on a single, EP, or album move through production, from writing to distribution, at a glance.
 
-Live demo: *coming soon*
-[Design file](https://www.figma.com/design/krb3JIEyzjm6DTVXyNEy5r/Mixdown--Release-Tracker?node-id=1-2&t=EjPOOWgkb8ojkbU4-1)
+- [Live demo](https://mixdown-releasetracker.netlify.app/)
+- [Design file](https://www.figma.com/design/krb3JIEyzjm6DTVXyNEy5r/Mixdown--Release-Tracker?node-id=1-2&t=EjPOOWgkb8ojkbU4-1)
 
 ---
 
