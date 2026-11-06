@@ -88,6 +88,31 @@ export function App() {
     });
   }
 
+  function addTrack(releaseId: string, name: string) {
+    const newTrack: Track = {
+      id: crypto.randomUUID(),
+      name: name,
+      write: "none",
+      record: "none",
+      mix: "none",
+      master: "none",
+    };
+
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tracks: [...release.tracks, newTrack],
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
+
   return (
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
@@ -100,6 +125,7 @@ export function App() {
             updateTrack(release.id, trackId, changes)
           }
           onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
+          onAddTrack={(name) => addTrack(release.id, name)}
           onDelete={() => deleteRelease(release.id)}
         />
       ))}

@@ -1,15 +1,18 @@
 import type { Release, Track } from "../types";
 import { STAGES } from "../types";
 import { TrackRow } from "./TrackRow";
+import { NewTrackForm } from "./NewTrackForm";
+
 
 type ReleaseRowProps = {
   release: Release;
   onUpdateTrack: (trackId: string, changes: Partial<Track>) => void;
   onDelete: () => void;
   onDeleteTrack: (trackId: string) => void;
+  onAddTrack: (name: string) => void;
 };
 
-export function ReleaseRow({ release, onUpdateTrack, onDelete, onDeleteTrack }: ReleaseRowProps) {
+export function ReleaseRow({ release, onUpdateTrack, onDelete, onDeleteTrack, onAddTrack }: ReleaseRowProps) {
   const headingId = `release-${release.id}-name`;
   return (
     <section className="release" aria-labelledby={headingId}>
@@ -47,6 +50,7 @@ export function ReleaseRow({ release, onUpdateTrack, onDelete, onDeleteTrack }: 
           ))}
         </tbody>
       </table>
+      <NewTrackForm releaseId={release.id} onAdd={onAddTrack} />
     </section>
   );
 }
