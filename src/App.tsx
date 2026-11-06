@@ -192,22 +192,24 @@ export function App() {
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
       <NewReleaseForm onAdd={addRelease} />
-      {releases.map((release) => (
-        <ReleaseRow
-          key={release.id}
-          release={release}
-          onUpdate={(name, releaseDate) => updateRelease(release.id, name, releaseDate)}
-          onUpdateTrack={(trackId, changes) =>
-            updateTrack(release.id, trackId, changes)
-          }
-          onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
-          onAddTrack={(name) => addTrack(release.id, name)}
-          onUpdateTask={(taskId, changes) => updateTask(release.id, taskId, changes)}
-          onDeleteTask={(taskId) => deleteTask(release.id, taskId)}
-          onAddTask={(name) => addTask(release.id, name)}
-          onDelete={() => deleteRelease(release.id)}
-        />
-      ))}
+      <div className="app__releases">
+        {releases.map((release) => (
+          <ReleaseRow
+            key={release.id}
+            release={release}
+            onUpdate={(name, releaseDate) => updateRelease(release.id, name, releaseDate)}
+            onUpdateTrack={(trackId, changes) =>
+              updateTrack(release.id, trackId, changes)
+            }
+            onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
+            onAddTrack={(name) => addTrack(release.id, name)}
+            onUpdateTask={(taskId, changes) => updateTask(release.id, taskId, changes)}
+            onDeleteTask={(taskId) => deleteTask(release.id, taskId)}
+            onAddTask={(name) => addTask(release.id, name)}
+            onDelete={() => deleteRelease(release.id)}
+          />
+        ))}
+      </div>
     </main>
   )
 }

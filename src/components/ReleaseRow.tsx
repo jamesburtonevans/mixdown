@@ -39,16 +39,18 @@ export function ReleaseRow({
   const bodyId = `release-${release.id}-body`;
   return (
     <section className="release" aria-labelledby={headingId}>
-      <h2 className="release__name" id={headingId}>{release.name}</h2>
-      <button
-        className="release__toggle"
-        type="button"
-        aria-expanded={isExpanded}
-        aria-controls={bodyId}
-        onClick={() => setIsExpanded(!isExpanded)}
-      >
-        {isExpanded ? "Collapse" : "Expand"} {release.name}
-      </button>
+      <header className="release__header">
+        <h2 className="release__name" id={headingId}>{release.name}</h2>
+        <button
+          className="release__toggle"
+          type="button"
+          aria-expanded={isExpanded}
+          aria-controls={bodyId}
+          onClick={() => setIsExpanded(!isExpanded)}
+        >
+          {isExpanded ? "Collapse" : "Expand"} {release.name}
+        </button>
+      </header>
 
       <p className="release__date">
         Release date:{" "}
@@ -67,7 +69,13 @@ export function ReleaseRow({
       <ReleaseSummary release={release} />
 
       <div className="release__body" id={bodyId} hidden={!isExpanded}>
-        {isEditing ? (
+        <div className="release__actions">
+          {!isEditing && (
+            <button className="release__edit" type="button" onClick={() => setIsEditing(true)}>Edit {release.name}</button>
+          )}
+          <button className="release__delete" type="button" onClick={onDelete}>Delete {release.name}</button>
+        </div>
+        {isEditing && (
           <EditReleaseForm
             release={release}
             onSave={(name, releaseDate) => {
@@ -76,27 +84,26 @@ export function ReleaseRow({
             }}
             onCancel={() => setIsEditing(false)}
           />
-        ) : (
-          <button className="release__edit" type="button" onClick={() => setIsEditing(true)}>Edit {release.name}</button>
         )}
-        <button className="release__delete" type="button" onClick={onDelete}>Delete {release.name}</button>
-        <table className="release__tracks" aria-labelledby={headingId}>
-          <thead>
-            <tr>
-              <th scope="col" className="release__heading">#</th>
-              <th scope="col" className="release__heading">Track</th>
-              {STAGES.map((stage) => (
-                <th scope="col" className="release__heading" key={stage}>{stage}</th>
+        <div className="release__table-wrap">
+          <table className="release__tracks" aria-labelledby={headingId}>
+            <thead>
+              <tr>
+                <th scope="col" className="release__heading">#</th>
+                <th scope="col" className="release__heading">Track</th>
+                {STAGES.map((stage) => (
+                  <th scope="col" className="release__heading" key={stage}>{stage}</th>
+                ))}
+                <th scope="col" className="release__heading">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {release.tracks.map((track, index) => (
+                <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} onDelete={() => onDeleteTrack(track.id)} />
               ))}
-              <th scope="col" className="release__heading">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {release.tracks.map((track, index) => (
-              <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} onDelete={() => onDeleteTrack(track.id)} />
-            ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        </div>
         <NewTrackForm releaseId={release.id} onAdd={onAddTrack} />
 
         <section className="release__tasks" aria-labelledby={tasksHeadingId}>

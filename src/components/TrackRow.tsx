@@ -57,14 +57,16 @@ export function TrackRow({ track, number, onUpdate, onDelete }: TrackRowProps) {
         </td>
       ))}
       <td className="track-row__actions">
-        {!isEditing && (
-          <button className="track-row__rename" type="button" onClick={startEditing}>
-            Rename {track.name}
+        <div className="track-row__buttons">
+          {!isEditing && (
+            <button className="track-row__rename" type="button" onClick={startEditing}>
+              Rename {track.name}
+            </button>
+          )}
+          <button className="track-row__delete" type="button" onClick={onDelete}>
+            Delete {track.name}
           </button>
-        )}
-        <button className="track-row__delete" type="button" onClick={onDelete}>
-          Delete {track.name}
-        </button>
+        </div>
       </td>
     </tr>
   );
