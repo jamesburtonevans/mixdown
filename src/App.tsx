@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { sampleReleases } from './sampleData';
 import { ReleaseRow } from './components/ReleaseRow';
+import { NewReleaseForm } from './components/NewReleaseForm';
 import type { Track, Release } from './types';
 
 export function App() {
@@ -45,33 +46,24 @@ export function App() {
     });
   }
 
-  function addRelease() {
+  function addRelease(name: string, releaseDate: string) {
     const newRelease: Release = {
       id: crypto.randomUUID(),
-      name: "New Release",
-      releaseDate: "2026-08-23",
+      name: name,
+      releaseDate: releaseDate === "" ? null: releaseDate,
       tasks: [
         {
           id: crypto.randomUUID(),
           name: "Artwork",
-          status: "done"
+          status: "none"
         },
         {
           id: crypto.randomUUID(),
           name: "Distribute",
-          status: "done"
+          status: "none"
         },
       ],
-      tracks: [
-        {
-          id: crypto.randomUUID(),
-          name: "New Song",
-          write: "done",
-          record: "done",
-          mix: "done",
-          master: "done",
-        },
-      ],
+      tracks: [],
     }
 
     setReleases((currentReleases) => {
@@ -82,7 +74,7 @@ export function App() {
   return (
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
-      <button className="release__add" type="button" onClick={addRelease}>Add New Release</button>
+      <NewReleaseForm onAdd={addRelease} />
       {releases.map((release) => (
         <ReleaseRow
           key={release.id}
