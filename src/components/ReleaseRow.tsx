@@ -6,9 +6,10 @@ type ReleaseRowProps = {
   release: Release;
   onUpdateTrack: (trackId: string, changes: Partial<Track>) => void;
   onDelete: () => void;
+  onDeleteTrack: (trackId: string) => void;
 };
 
-export function ReleaseRow({ release, onUpdateTrack, onDelete }: ReleaseRowProps) {
+export function ReleaseRow({ release, onUpdateTrack, onDelete, onDeleteTrack }: ReleaseRowProps) {
   const headingId = `release-${release.id}-name`;
   return (
     <section className="release" aria-labelledby={headingId}>
@@ -37,11 +38,12 @@ export function ReleaseRow({ release, onUpdateTrack, onDelete }: ReleaseRowProps
             {STAGES.map((stage) => (
               <th scope="col" className="release__heading" key={stage}>{stage}</th>
             ))}
+            <th scope="col" className="release__heading">Actions</th>
           </tr>
         </thead>
         <tbody>
           {release.tracks.map((track, index) => (
-            <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} />
+            <TrackRow key={track.id} track={track} number={index + 1} onUpdate={(changes) => onUpdateTrack(track.id, changes)} onDelete={() => onDeleteTrack(track.id)} />
           ))}
         </tbody>
       </table>

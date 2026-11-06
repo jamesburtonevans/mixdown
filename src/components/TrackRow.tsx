@@ -2,9 +2,9 @@ import type { Track } from "../types";
 import { STAGES } from "../types";
 import { StatusSelect } from "./StatusSelect"
 
-type TrackRowProps = { track: Track, number: number, onUpdate: (changes: Partial<Track>) => void; };
+type TrackRowProps = { track: Track, number: number, onUpdate: (changes: Partial<Track>) => void; onDelete: () => void; };
 
-export function TrackRow({ track, number, onUpdate }: TrackRowProps) {
+export function TrackRow({ track, number, onUpdate, onDelete }: TrackRowProps) {
   return (
     <tr className="track-row">
       <td className="track-row__number">{number}</td>
@@ -14,6 +14,11 @@ export function TrackRow({ track, number, onUpdate }: TrackRowProps) {
           <StatusSelect value={track[stage]} label={track.name + " " + stage} onChange={(newStatus) => {onUpdate({ [stage]: newStatus})}} />
         </td>
       ))}
+      <td className="track-row__actions">
+        <button className="track-row__delete" type="button" onClick={onDelete}>
+          Delete {track.name}
+        </button>
+      </td>
     </tr>
   );
 }

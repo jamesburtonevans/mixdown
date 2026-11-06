@@ -71,6 +71,23 @@ export function App() {
     });
   }
 
+  function deleteTrack(releaseId: string, trackId: string) {
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tracks: release.tracks.filter((track) => {
+              return track.id !== trackId;
+            }),
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
   return (
     <main className="app">
       <h1 className="app__title">Mixdown</h1>
@@ -82,6 +99,7 @@ export function App() {
           onUpdateTrack={(trackId, changes) =>
             updateTrack(release.id, trackId, changes)
           }
+          onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
           onDelete={() => deleteRelease(release.id)}
         />
       ))}
