@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { sampleReleases } from './sampleData';
 import { ReleaseRow } from './components/ReleaseRow';
 import { NewReleaseForm } from './components/NewReleaseForm';
-import type { Track, Release } from './types';
+import type { Track, Release, Task } from './types';
 
 export function App() {
   const [releases, setReleases] = useState<Release[]>(() => {
@@ -19,33 +19,6 @@ export function App() {
     localStorage.setItem("mixdown-releases", releaseText);
   }, [releases]);
 
-  function updateTrack(releaseId: string, trackId: string, changes: Partial<Track>) {
-    setReleases((currentReleases) => {
-      return currentReleases.map((release) => {
-        if (release.id === releaseId) {
-          return {
-            ...release,
-            tracks: release.tracks.map((track) => {
-              if (track.id === trackId) {
-                return { ...track, ...changes };
-              } else {
-                return track;
-              }
-            }),
-          };
-        } else {
-          return release;
-        }
-      });
-    });
-  }
-
-  function deleteRelease(releaseId: string) {
-    setReleases((currentReleases) => {
-      return currentReleases.filter((release) => { return release.id !== releaseId })
-    });
-  }
-
   function updateRelease(releaseId: string, name: string, releaseDate: string) {
     setReleases((currentReleases) => {
       return currentReleases.map((release) => {
@@ -59,6 +32,12 @@ export function App() {
           return release;
         }
       });
+    });
+  }
+
+  function deleteRelease(releaseId: string) {
+    setReleases((currentReleases) => {
+      return currentReleases.filter((release) => { return release.id !== releaseId })
     });
   }
 
@@ -84,6 +63,27 @@ export function App() {
 
     setReleases((currentReleases) => {
       return [...currentReleases, newRelease];
+    });
+  }
+
+  function updateTrack(releaseId: string, trackId: string, changes: Partial<Track>) {
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tracks: release.tracks.map((track) => {
+              if (track.id === trackId) {
+                return { ...track, ...changes };
+              } else {
+                return track;
+              }
+            }),
+          };
+        } else {
+          return release;
+        }
+      });
     });
   }
 
@@ -128,6 +128,65 @@ export function App() {
     });
   }
 
+  function updateTask(releaseId: string, taskId: string, changes: Partial<Task>) {
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tasks: release.tasks.map((task) => {
+              if (task.id === taskId) {
+                return { ...task, ...changes };
+              } else {
+                return task;
+              }
+            }),
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
+  function deleteTask(releaseId: string, taskId: string) {
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tasks: release.tasks.filter((task) => {
+              return task.id !== taskId;
+            }),
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
+  function addTask(releaseId: string, name: string) {
+    const newTask: Task = {
+      id: crypto.randomUUID(),
+      name: name,
+      status: "none",
+    };
+
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            tasks: [...release.tasks, newTask],
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
 
   return (
     <main className="app">
@@ -143,6 +202,9 @@ export function App() {
           }
           onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
           onAddTrack={(name) => addTrack(release.id, name)}
+          onUpdateTask={(taskId, changes) => updateTask(release.id, taskId, changes)}
+          onDeleteTask={(taskId) => deleteTask(release.id, taskId)}
+          onAddTask={(name) => addTask(release.id, name)}
           onDelete={() => deleteRelease(release.id)}
         />
       ))}

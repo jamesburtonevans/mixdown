@@ -1,9 +1,11 @@
 import { useState } from "react";
-import type { Release, Track } from "../types";
+import type { Release, Track, Task } from "../types";
 import { STAGES } from "../types";
 import { TrackRow } from "./TrackRow";
 import { NewTrackForm } from "./NewTrackForm";
 import { EditReleaseForm } from "./EditReleaseForm";
+import { TaskRow } from "./TaskRow";
+import { NewTaskForm } from "./NewTaskForm";
 
 
 type ReleaseRowProps = {
@@ -13,11 +15,25 @@ type ReleaseRowProps = {
   onDelete: () => void;
   onDeleteTrack: (trackId: string) => void;
   onAddTrack: (name: string) => void;
+  onUpdateTask: (taskId: string, changes: Partial<Task>) => void;
+  onDeleteTask: (taskId: string) => void;
+  onAddTask: (name: string) => void;
 };
 
-export function ReleaseRow({ release, onUpdate, onUpdateTrack, onDelete, onDeleteTrack, onAddTrack }: ReleaseRowProps) {
+export function ReleaseRow({
+  release,
+  onUpdate,
+  onUpdateTrack,
+  onDelete,
+  onDeleteTrack,
+  onAddTrack,
+  onUpdateTask,
+  onDeleteTask,
+  onAddTask,
+}: ReleaseRowProps) {
   const [isEditing, setIsEditing] = useState(false);
   const headingId = `release-${release.id}-name`;
+  const tasksHeadingId = `release-${release.id}-tasks`;
   return (
     <section className="release" aria-labelledby={headingId}>
       <h2 className="release__name" id={headingId}>{release.name}</h2>
@@ -67,6 +83,25 @@ export function ReleaseRow({ release, onUpdate, onUpdateTrack, onDelete, onDelet
         </tbody>
       </table>
       <NewTrackForm releaseId={release.id} onAdd={onAddTrack} />
+
+      <section className="release__tasks" aria-labelledby={tasksHeadingId}>
+        <h3 id={tasksHeadingId}>Tasks</h3>
+        {release.tasks.length === 0 ? (
+          <p className="release__no-tasks">No tasks yet.</p>
+        ) : (
+          <ul className="release__task-list">
+            {release.tasks.map((task) => (
+              <TaskRow
+                key={task.id}
+                task={task}
+                onUpdate={(changes) => onUpdateTask(task.id, changes)}
+                onDelete={() => onDeleteTask(task.id)}
+              />
+            ))}
+          </ul>
+        )}
+        <NewTaskForm releaseId={release.id} onAdd={onAddTask} />
+      </section>
     </section>
   );
 }
