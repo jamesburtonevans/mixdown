@@ -59,7 +59,7 @@ type Track = {
 type Release = {
   id: string;
   name: string;
-  releaseDate: string; // ISO date
+  releaseDate: string | null; // ISO date, null meaning blank
   tasks: Task[]; // release-wide work: artwork, distribute, ...
   tracks: Track[];
 };

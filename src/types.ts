@@ -20,7 +20,7 @@ export type Track = {
 export type Release = {
   id: string,
   name: string,
-  releaseDate: string,
+  releaseDate: string | null, //null means no date set
   tasks: Task[],
   tracks: Track[],
 };
