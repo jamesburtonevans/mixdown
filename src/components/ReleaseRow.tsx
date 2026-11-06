@@ -2,7 +2,6 @@ import type { Release, Track } from "../types";
 import { STAGES } from "../types";
 import { TrackRow } from "./TrackRow";
 
-
 type ReleaseRowProps = {
   release: Release;
   onUpdateTrack: (trackId: string, changes: Partial<Track>) => void;
