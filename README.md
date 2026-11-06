@@ -24,14 +24,14 @@ Each release shows its tracks as rows and its production stages as columns, so y
 ## Features
 
 ### MVP
-- [ ] Create and delete releases, each with a name and target release date
-- [ ] Add, rename, and delete tracks within a release
-- [ ] Per-track stage view showing each stage as none / to do / in progress / in review / done
-- [ ] Release tasks (artwork, distribution, and any others you add)
-- [ ] Collapse and expand releases
-- [ ] Release progress summary per stage (e.g. "3 of 7 tracks mixed")
-- [ ] Data persists in localStorage
-- [ ] Deployed
+- [X] Create and delete releases, each with a name and target release date
+- [X] Add, rename, and delete tracks within a release
+- [X] Per-track stage view showing each stage as none / to do / in progress / in review / done
+- [X] Release tasks (artwork, distribution, and any others you add)
+- [X] Collapse and expand releases
+- [X] Release progress summary per stage (e.g. "3 of 7 tracks mixed")
+- [X] Data persists in localStorage
+- [X] Deployed
 
 ### Later
 - [ ] Overdue warnings based on target release date
