@@ -6,6 +6,7 @@ import { NewTrackForm } from "./NewTrackForm";
 import { EditReleaseForm } from "./EditReleaseForm";
 import { TaskRow } from "./TaskRow";
 import { NewTaskForm } from "./NewTaskForm";
+import { ReleaseSummary } from "./ReleaseSummary";
 
 
 type ReleaseRowProps = {
@@ -51,6 +52,8 @@ export function ReleaseRow({
           </time>
         )}
       </p>
+
+      <ReleaseSummary release={release} />
 
       {isEditing ? (
         <EditReleaseForm
