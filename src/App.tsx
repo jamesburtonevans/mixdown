@@ -46,6 +46,22 @@ export function App() {
     });
   }
 
+  function updateRelease(releaseId: string, name: string, releaseDate: string) {
+    setReleases((currentReleases) => {
+      return currentReleases.map((release) => {
+        if (release.id === releaseId) {
+          return {
+            ...release,
+            name: name,
+            releaseDate: releaseDate === "" ? null : releaseDate,
+          };
+        } else {
+          return release;
+        }
+      });
+    });
+  }
+
   function addRelease(name: string, releaseDate: string) {
     const newRelease: Release = {
       id: crypto.randomUUID(),
@@ -121,6 +137,7 @@ export function App() {
         <ReleaseRow
           key={release.id}
           release={release}
+          onUpdate={(name, releaseDate) => updateRelease(release.id, name, releaseDate)}
           onUpdateTrack={(trackId, changes) =>
             updateTrack(release.id, trackId, changes)
           }
