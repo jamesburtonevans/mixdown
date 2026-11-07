@@ -190,25 +190,30 @@ export function App() {
 
   return (
     <main className="app">
-      <h1 className="app__title">Mixdown</h1>
-      <NewReleaseForm onAdd={addRelease} />
+      <div className="app__top-bar">
+        <i className="app__logo" aria-hidden="true"></i>
+        <h1 className="app__title">Mixdown</h1>
+      </div>
       <div className="app__releases">
-        {releases.map((release) => (
-          <ReleaseRow
-            key={release.id}
-            release={release}
-            onUpdate={(name, releaseDate) => updateRelease(release.id, name, releaseDate)}
-            onUpdateTrack={(trackId, changes) =>
-              updateTrack(release.id, trackId, changes)
-            }
-            onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
-            onAddTrack={(name) => addTrack(release.id, name)}
-            onUpdateTask={(taskId, changes) => updateTask(release.id, taskId, changes)}
-            onDeleteTask={(taskId) => deleteTask(release.id, taskId)}
-            onAddTask={(name) => addTask(release.id, name)}
-            onDelete={() => deleteRelease(release.id)}
-          />
-        ))}
+        <NewReleaseForm onAdd={addRelease} />
+        <div className="app__release-list">
+          {releases.map((release) => (
+            <ReleaseRow
+              key={release.id}
+              release={release}
+              onUpdate={(name, releaseDate) => updateRelease(release.id, name, releaseDate)}
+              onUpdateTrack={(trackId, changes) =>
+                updateTrack(release.id, trackId, changes)
+              }
+              onDeleteTrack={(trackId) => deleteTrack(release.id, trackId)}
+              onAddTrack={(name) => addTrack(release.id, name)}
+              onUpdateTask={(taskId, changes) => updateTask(release.id, taskId, changes)}
+              onDeleteTask={(taskId) => deleteTask(release.id, taskId)}
+              onAddTask={(name) => addTask(release.id, name)}
+              onDelete={() => deleteRelease(release.id)}
+            />
+          ))}
+        </div>
       </div>
     </main>
   )

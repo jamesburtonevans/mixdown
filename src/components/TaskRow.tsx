@@ -16,7 +16,7 @@ export function TaskRow({ task, onUpdate, onDelete }: TaskRowProps) {
         label={`${task.name} status`}
         onChange={(newStatus) => onUpdate({ status: newStatus })}
       />
-      <button className="task-row__delete" type="button" onClick={onDelete}>
+      <button className="icon-button icon-button--delete task-row__delete" type="button" onClick={onDelete}>
         Delete {task.name}
       </button>
     </li>

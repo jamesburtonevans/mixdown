@@ -22,7 +22,7 @@ export function NewTaskForm({ releaseId, onAdd }: NewTaskFormProps) {
 
   return (
     <form className="new-task-form" onSubmit={handleSubmit}>
-      <div className="new-task-form__field">
+      <div className="field new-task-form__field">
         <label htmlFor={inputId}>Task name</label>
         <input
           type="text"
@@ -33,7 +33,7 @@ export function NewTaskForm({ releaseId, onAdd }: NewTaskFormProps) {
         />
       </div>
       <div className="new-task-form__actions">
-        <button type="submit">Add task</button>
+        <button className="icon-button icon-button--add" type="submit">Add task</button>
       </div>
     </form>
   );

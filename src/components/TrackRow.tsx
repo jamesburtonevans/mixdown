@@ -44,8 +44,8 @@ export function TrackRow({ track, number, onUpdate, onDelete }: TrackRowProps) {
                 }
               }}
             />
-            <button type="submit">Save</button>
-            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+            <button className="button" type="submit">Save</button>
+            <button className="button" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
           </form>
         ) : (
           track.name
@@ -59,11 +59,11 @@ export function TrackRow({ track, number, onUpdate, onDelete }: TrackRowProps) {
       <td className="track-row__actions">
         <div className="track-row__buttons">
           {!isEditing && (
-            <button className="track-row__rename" type="button" onClick={startEditing}>
+            <button className="icon-button icon-button--edit track-row__rename" type="button" onClick={startEditing}>
               Rename {track.name}
             </button>
           )}
-          <button className="track-row__delete" type="button" onClick={onDelete}>
+          <button className="icon-button icon-button--delete track-row__delete" type="button" onClick={onDelete}>
             Delete {track.name}
           </button>
         </div>

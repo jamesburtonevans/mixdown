@@ -17,6 +17,13 @@ export function ReleaseSummary({ release }: ReleaseSummaryProps) {
     <section className="release-summary" aria-labelledby={headingId}>
       <h3 id={headingId}>Progress</h3>
       <ul className="release-summary__list">
+        {taskTotal === 0 ? (
+          <li className="release-summary__item">No tasks yet</li>
+        ) : (
+          <li className="release-summary__item">
+            <span className="release-summary__stage">Tasks</span>: {tasksDone} of {taskTotal} {taskWord} done
+          </li>
+        )}
         {trackTotal === 0 ? (
           <li className="release-summary__item">No tracks yet</li>
         ) : (
@@ -28,13 +35,6 @@ export function ReleaseSummary({ release }: ReleaseSummaryProps) {
               </li>
             );
           })
-        )}
-        {taskTotal === 0 ? (
-          <li className="release-summary__item">No tasks yet</li>
-        ) : (
-          <li className="release-summary__item">
-            <span className="release-summary__stage">Tasks</span>: {tasksDone} of {taskTotal} {taskWord} done
-          </li>
         )}
       </ul>
     </section>

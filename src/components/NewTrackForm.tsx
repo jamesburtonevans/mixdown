@@ -22,7 +22,7 @@ export function NewTrackForm({ releaseId, onAdd }: NewTrackFormProps) {
 
   return (
     <form className="new-track-form" onSubmit={handleSubmit}>
-      <div className="new-track-form__field">
+      <div className="field new-track-form__field">
         <label htmlFor={inputId}>Track title</label>
         <input
           type="text"
@@ -33,7 +33,7 @@ export function NewTrackForm({ releaseId, onAdd }: NewTrackFormProps) {
         />
       </div>
       <div className="new-track-form__actions">
-        <button type="submit">Add track</button>
+        <button className="icon-button icon-button--add" type="submit">Add track</button>
       </div>
     </form>
   );

@@ -25,7 +25,7 @@ export function EditReleaseForm({ release, onSave, onCancel }: EditReleaseFormPr
 
   return (
     <form className="edit-release-form" onSubmit={handleSubmit}>
-      <div className="edit-release-form__field">
+      <div className="field edit-release-form__field">
         <label htmlFor={nameId}>Release title</label>
         <input
           type="text"
@@ -36,7 +36,7 @@ export function EditReleaseForm({ release, onSave, onCancel }: EditReleaseFormPr
           onChange={(event) => setName(event.target.value)}
         />
       </div>
-      <div className="edit-release-form__field">
+      <div className="field edit-release-form__field">
         <label htmlFor={dateId}>Release date</label>
         <input
           type="date"
@@ -46,8 +46,8 @@ export function EditReleaseForm({ release, onSave, onCancel }: EditReleaseFormPr
         />
       </div>
       <div className="edit-release-form__actions">
-        <button type="submit">Save</button>
-        <button type="button" onClick={onCancel}>Cancel</button>
+        <button className="button" type="submit">Save</button>
+        <button className="button" type="button" onClick={onCancel}>Cancel</button>
       </div>
     </form>
   );
